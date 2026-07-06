@@ -162,15 +162,24 @@ model's accuracy is carried by the MSA.
 
 **Adding the MSA to Chai-1 (row 1) is the notable result: it makes Chai-1 worse
 on average** (0.562 vs 0.799 single-sequence). The effect is strongly bimodal —
-the ColabFold MSA *improves* 10/45 targets (e.g. T1145 +0.32, T1159 +0.30) but
-*degrades* 22/45, several to near-unfolded structures (T1185s2 −0.72, T1185s4
-−0.68, T1272s4 −0.67). Chai-1's own reported protocol uses its MSA-server
-alignments with per-database source tagging and species pairing; here the
-single merged ColabFold A3M is supplied as one `uniref90`-tagged source without
-Chai's native multi-source pairing, and the degraded targets tend to be the
-ones with the deepest alignments. **This `chai1_msa` number should be read as an
-exploratory result of feeding a ColabFold MSA to Chai-1, not as Chai-1's
-best-case MSA performance.**
+the MSA *improves* 10/45 targets (e.g. T1145 +0.32, T1159 +0.30) but *degrades*
+22/45, several to near-unfolded structures (T1185s2 −0.72, T1185s4 −0.68,
+T1272s4 −0.67), concentrated on the multi-domain CASP subdomain targets
+(T1137sX / T1272sX / T1114sX / T1185sX).
+
+This is **genuine Chai-1 behavior, not an artifact of our ColabFold A3M.** We
+verified it by re-folding all 45 targets with Chai-1's *own* online MSA server
+(properly per-database source-tagged and species-paired): the native-MSA mean is
+**0.563 vs our ColabFold-A3M 0.562** (mean |Δ| = 0.005, max 0.025 lDDT-Cα per
+target), collapsing on the same targets. So `chai1_msa` reflects the model, not
+our MSA pipeline. It is consistent with reported "MSA can hurt AF3-style models"
+behavior — Chai-1's maintainers acknowledge predictions can be worse with MSAs
+that are "not consistent with the model's expectations"
+([chai-lab discussion #277](https://github.com/chaidiscovery/chai-lab/discussions/277)),
+and a related effect is reported for Boltz
+([issue #627](https://github.com/jwohlwend/boltz/issues/627)) — though those
+reports concern irrelevant MSAs on designed/orphan proteins, whereas here the
+degradation is on natural targets with deep, relevant alignments.
 
 ## Exported Files
 
