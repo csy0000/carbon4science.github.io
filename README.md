@@ -134,6 +134,44 @@ All 45/45 targets scored successfully for every model. **Bold** = best value in 
 
 Parameter counts were measured directly from the local model weights: JAX `.npz` array sizes (summed `arr.size`) for the AF2-family models (af2, colabfold, openfold reuse the same Evoformer weights at 93.2M each); summed `tensor.numel()` over PyTorch/TorchScript checkpoint weights containers for the remaining models. `(+2.84B ESM2)` denotes the separate ESM-2 3B language model (`esm2_t36_3B_UR50D`) that `chai1` and `esmfold` load as a sequence embedder at inference; the folding-trunk parameters are listed first.
 
+## MSA Cross-Mode Variants (2026-07-09)
+
+The main export above runs each model in its default MSA mode. This follow-up
+experiment runs four of them in the **opposite** MSA mode on the **same 45
+targets**, to isolate the effect of the MSA alone. Each variant is a distinct
+model label; the eight-model table above is unchanged.
+
+- **Source run:** `results/20260709_casp15_casp16_unique_lt1000_msa-variants` (in `Protein-Folding-Benchmark`).
+- **MSA source:** for `chai1_msa`, the shared ColabFold/MMseqs2 A3M already computed for the CASP targets, converted to Chai-1's `.aligned.pqt` format. The three `*_nomsa` variants use no MSA (single-sequence input).
+- **Exported JSONs:** `results/chai1_msa.json`, `results/boltz2_nomsa.json`, `results/colabfold_nomsa.json`, `results/openfold_nomsa.json`. All 45/45 targets predicted (GPU) and scored with the same `--match-mode sequence` protocol.
+
+| Variant | Mode change | lDDT-Cα | TM-score | GDT_TS (%) | Cα-RMSD (Å) | Base model (lDDT-Cα) | Δ lDDT-Cα |
+| --------------- | ---------------------------- | ------- | -------- | ---------- | ----------- | -------------------- | --------- |
+| chai1_msa       | **+**ColabFold MSA (base: no MSA) | 0.562   | 0.533    | 36.39      | 24.996      | chai1 (0.799)        | **−0.237** |
+| boltz2_nomsa    | **−**MSA, single-sequence (base: MSA) | 0.421   | 0.387    | 19.34      | 29.835      | boltz2 (0.864)       | −0.443    |
+| colabfold_nomsa | **−**MSA, single-sequence (base: MSA) | 0.307   | 0.290    | 8.42       | 32.431      | colabfold (0.876)    | −0.569    |
+| openfold_nomsa  | **−**MSA, single-sequence (base: MSA) | 0.307   | 0.288    | 8.98       | 32.839      | openfold (0.875)     | −0.568    |
+
+All 45/45 targets scored for every variant. GDT_TS is on a 0–100 scale (`gdt_ts_percent`); for Cα-RMSD lower is better. Per-protein scores (lDDT, TM, GDT_TS, Cα-RMSD) and the aggregate rows are in `results/benchmark-score.csv`, `results/benchmark_scores_all_models.csv`, and `results/benchmark_model_summary_all_models.csv` alongside the eight base models, and in each variant's JSON.
+
+**Removing the MSA (rows 2–4)** collapses the three MSA-dependent models, as
+expected: ColabFold and OpenFold both run AlphaFold2 Evoformer weights, which
+lose almost all accuracy without an alignment (lDDT-Cα ≈ 0.31), and the Boltz-2
+diffusion trunk drops from 0.864 to 0.421. These confirm how much of each
+model's accuracy is carried by the MSA.
+
+**Adding the MSA to Chai-1 (row 1) is the notable result: it makes Chai-1 worse
+on average** (0.562 vs 0.799 single-sequence). The effect is strongly bimodal —
+the ColabFold MSA *improves* 10/45 targets (e.g. T1145 +0.32, T1159 +0.30) but
+*degrades* 22/45, several to near-unfolded structures (T1185s2 −0.72, T1185s4
+−0.68, T1272s4 −0.67). Chai-1's own reported protocol uses its MSA-server
+alignments with per-database source tagging and species pairing; here the
+single merged ColabFold A3M is supplied as one `uniref90`-tagged source without
+Chai's native multi-source pairing, and the degraded targets tend to be the
+ones with the deepest alignments. **This `chai1_msa` number should be read as an
+exploratory result of feeding a ColabFold MSA to Chai-1, not as Chai-1's
+best-case MSA performance.**
+
 ## Exported Files
 
 The `results/` directory is intentionally clean and contains the latest export:
@@ -154,6 +192,13 @@ The `results/` directory is intentionally clean and contains the latest export:
 - `results/esmfold.json`
 - `results/omegafold.json`
 - `results/boltz2.json`
+
+MSA cross-mode variants (see the section above; separate 2026-07-09 run):
+
+- `results/chai1_msa.json`
+- `results/boltz2_nomsa.json`
+- `results/colabfold_nomsa.json`
+- `results/openfold_nomsa.json`
 
 ## Reproduction
 
