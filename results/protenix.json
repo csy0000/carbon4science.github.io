@@ -2,7 +2,7 @@
   "model": "protenix",
   "benchmark": "casp15_casp16_unique_lt1000_combined_8models_20260606",
   "included_in_this_export": true,
-  "exported_at_utc": "2026-08-04T09:29:47+00:00",
+  "exported_at_utc": "2026-08-04T09:51:55+00:00",
   "source_repository": "/home/chen/projects/Protein-Folding-Benchmark",
   "source_result_dir": "results/2026-06-09-combine-8models-gpu",
   "target_set": "results/2026-06-09-combine-8models-gpu/metadata/scoring_targets.csv",
@@ -5794,11 +5794,11 @@
         "inference_energy_consumed_kwh": 0.15321740374587636,
         "total_carbon_emissions_g": 442.2727336774973,
         "inference_carbon_emissions_g": 72.77826677929129,
-        "cpu_energy_kwh": 0.0093822577750377,
-        "gpu_energy_kwh": 0.10431226622751977,
-        "ram_energy_kwh": 0.03952287974331896,
-        "codecarbon_wall_time_sec": 4042.349148618174,
-        "gpu_share_pct": 68.08121249758948
+        "cpu_energy_kwh": 0.06206953888484961,
+        "gpu_energy_kwh": 0.6061348087963419,
+        "ram_energy_kwh": 0.2628961442714344,
+        "codecarbon_wall_time_sec": 27378.30098673352,
+        "gpu_share_pct": 65.09875293108338
       }
     },
     {
@@ -5836,11 +5836,11 @@
         "inference_energy_consumed_kwh": 0.24442026981818632,
         "total_carbon_emissions_g": 335.11046431186,
         "inference_carbon_emissions_g": 116.0996281636385,
-        "cpu_energy_kwh": 0.04920357108248605,
-        "gpu_energy_kwh": 0.0864032914412186,
-        "ram_energy_kwh": 0.10881340729448173,
-        "codecarbon_wall_time_sec": 4167.96927022934,
-        "gpu_share_pct": 35.35029705412331
+        "cpu_energy_kwh": 0.10094865354944732,
+        "gpu_energy_kwh": 0.276131566834829,
+        "ram_energy_kwh": 0.3284154939564815,
+        "codecarbon_wall_time_sec": 27122.786202658346,
+        "gpu_share_pct": 39.14007714318391
       }
     },
     {
@@ -5878,11 +5878,11 @@
         "inference_energy_consumed_kwh": 0.26540042942591446,
         "total_carbon_emissions_g": 356.11350511239885,
         "inference_carbon_emissions_g": 126.06520397730934,
-        "cpu_energy_kwh": 0.04988913256989585,
-        "gpu_energy_kwh": 0.10516124514801925,
-        "ram_energy_kwh": 0.11035005170799932,
-        "codecarbon_wall_time_sec": 4226.042688369751,
-        "gpu_share_pct": 39.623615295383175
+        "cpu_energy_kwh": 0.1048560661317921,
+        "gpu_energy_kwh": 0.3034255584815668,
+        "ram_energy_kwh": 0.34143101772853357,
+        "codecarbon_wall_time_sec": 28377.37482428878,
+        "gpu_share_pct": 40.47224781134146
       }
     }
   ],
@@ -6090,43 +6090,43 @@
   },
   "cost_totals_across_reps": {
     "codecarbon_wall_time_sec": {
-      "mean": 4145.4537024057545,
-      "std": 93.89378164942502,
+      "mean": 27626.154004560216,
+      "std": 663.0018787420508,
       "n_reps": 3,
       "values": {
-        "rep1": 4042.349148618174,
-        "rep2": 4167.96927022934,
-        "rep3": 4226.042688369751
+        "rep1": 27378.30098673352,
+        "rep2": 27122.786202658346,
+        "rep3": 28377.37482428878
       }
     },
     "cpu_energy_kwh": {
-      "mean": 0.036158320475806534,
-      "std": 0.02319128390052786,
+      "mean": 0.08929141952202968,
+      "std": 0.023655655927089105,
       "n_reps": 3,
       "values": {
-        "rep1": 0.0093822577750377,
-        "rep2": 0.04920357108248605,
-        "rep3": 0.04988913256989585
+        "rep1": 0.06206953888484961,
+        "rep2": 0.10094865354944732,
+        "rep3": 0.1048560661317921
       }
     },
     "gpu_energy_kwh": {
-      "mean": 0.0986256009389192,
-      "std": 0.010593338869074754,
+      "mean": 0.3952306447042459,
+      "std": 0.18315748774904714,
       "n_reps": 3,
       "values": {
-        "rep1": 0.10431226622751977,
-        "rep2": 0.0864032914412186,
-        "rep3": 0.10516124514801925
+        "rep1": 0.6061348087963419,
+        "rep2": 0.276131566834829,
+        "rep3": 0.3034255584815668
       }
     },
     "gpu_share_pct": {
-      "mean": 47.68504161569865,
-      "std": 17.792362186630516,
+      "mean": 48.237025961869584,
+      "std": 14.617867387567475,
       "n_reps": 3,
       "values": {
-        "rep1": 68.08121249758948,
-        "rep2": 35.35029705412331,
-        "rep3": 39.623615295383175
+        "rep1": 65.09875293108338,
+        "rep2": 39.14007714318391,
+        "rep3": 40.47224781134146
       }
     },
     "inference_carbon_emissions_g": {
@@ -6170,13 +6170,13 @@
       }
     },
     "ram_energy_kwh": {
-      "mean": 0.08622877958193333,
-      "std": 0.04045579227767524,
+      "mean": 0.3109142186521498,
+      "std": 0.04209100337588965,
       "n_reps": 3,
       "values": {
-        "rep1": 0.03952287974331896,
-        "rep2": 0.10881340729448173,
-        "rep3": 0.11035005170799932
+        "rep1": 0.2628961442714344,
+        "rep2": 0.3284154939564815,
+        "rep3": 0.34143101772853357
       }
     },
     "total_carbon_emissions_g": {
