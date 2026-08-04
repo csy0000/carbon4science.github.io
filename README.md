@@ -146,18 +146,20 @@ Every value is **mean ± sample standard deviation across three independent repl
 
 CPU / GPU / RAM energy from the per-(target, model, stage) CodeCarbon records, summed over all stages, as mean ± std across the three replicates. **This is a device split of energy, not of wall time** — no device is recorded per prediction, and a stage occupies wall-clock while both CPU and GPU are partly busy, so per-device wall time is not a defined quantity here. Per-replicate values are in each `results/{model}.json` under `replicates[].cost_totals` and `cost_totals_across_reps`.
 
-| Model | CPU (kWh) | GPU (kWh) | RAM (kWh) | GPU share (%) |
-| --------- | ---------------: | ---------------: | ---------------: | -----------: |
-| af2 †     | 0.3731 ± 0.5204 | 0.6755 ± 0.7802 | 0.8115 ± 1.1515 | 44.9 ± 10.0 |
-| colabfold | 0.0824 ± 0.0018 | 0.4571 ± 0.2356 | 0.2871 ± 0.0063 | 53.1 ± 11.4 |
-| omegafold | 0.0422 ± 0.0256 | 0.2981 ± 0.0133 | 0.1016 ± 0.0421 | 68.5 ± 12.3 |
-| chai1     | 0.0474 ± 0.0266 | 0.2745 ± 0.0233 | 0.1158 ± 0.0398 | 63.5 ± 12.3 |
-| openfold  | 0.0262 ± 0.0156 | 0.1800 ± 0.0082 | 0.0628 ± 0.0260 | 68.0 ± 12.2 |
-| boltz2    | 0.0250 ± 0.0152 | 0.1035 ± 0.0149 | 0.0594 ± 0.0265 | 57.3 ± 11.7 |
-| protenix  | 0.0362 ± 0.0232 | 0.0986 ± 0.0106 | 0.0862 ± 0.0405 | 47.7 ± 17.8 |
-| esmfold   | 0.0229 ± 0.0124 | 0.0893 ± 0.0182 | 0.0547 ± 0.0204 | 54.4 ± 16.5 |
+| Model | CPU (kWh) | GPU (kWh) | RAM (kWh) | GPU share (%) | Measured wall time (h) |
+| --------- | ---------------: | ---------------: | ---------------: | -----------: | ----------------: |
+| af2 †     | 0.3731 ± 0.5204 | 0.6755 ± 0.7802 | 0.8115 ± 1.1515 | 44.9 ± 10.0 | 8.78 ± 12.24 †  |
+| colabfold | 0.0824 ± 0.0018 | 0.4571 ± 0.2356 | 0.2871 ± 0.0063 | 53.1 ± 11.4 | 8.31 ± 0.18     |
+| omegafold | 0.0422 ± 0.0256 | 0.2981 ± 0.0133 | 0.1016 ± 0.0421 | 68.5 ± 12.3 | 1.40 ± 0.10     |
+| chai1     | 0.0474 ± 0.0266 | 0.2745 ± 0.0233 | 0.1158 ± 0.0398 | 63.5 ± 12.3 | 1.65 ± 0.30     |
+| openfold ‡ | 0.0262 ± 0.0156 | 0.1800 ± 0.0082 | 0.0628 ± 0.0260 | 68.0 ± 12.2 | 0.86 ± 0.06    |
+| boltz2 ‡  | 0.0250 ± 0.0152 | 0.1035 ± 0.0149 | 0.0594 ± 0.0265 | 57.3 ± 11.7 | 0.80 ± 0.01     |
+| protenix ‡ | 0.0362 ± 0.0232 | 0.0986 ± 0.0106 | 0.0862 ± 0.0405 | 47.7 ± 17.8 | 1.15 ± 0.03    |
+| esmfold   | 0.0229 ± 0.0124 | 0.0893 ± 0.0182 | 0.0547 ± 0.0204 | 54.4 ± 16.5 | 0.76 ± 0.10     |
 
-Three stages are measured: `inference` (all eight models), `msa_build` (colabfold's shared MMseqs2 search), and `msa_features` (af2's jackhmmer/HHblits stage, present in replicate 1 only — which is why af2 carries a large ± and 0.97 kWh of replicate-1 CPU energy). The wide ± on several rows is dominated by the replicate-1 attribution difference described above rather than by genuine variation.
+Three stages are measured: `inference` (all eight models), `msa_build` (colabfold's shared MMseqs2 search), and `msa_features` (af2's jackhmmer/HHblits stage, present in replicate 1 only — which is why af2 carries a large ± and 0.97 kWh of replicate-1 CPU energy). The wide ± on several energy rows is dominated by the replicate-1 attribution difference described above rather than by genuine variation.
+
+The wall-time column is CodeCarbon's own stage timer, measured independently of the runtime columns in the Current Results table. The two agree to within 1–3% for every model CodeCarbon measures end to end (colabfold 8.31 vs 8.36 h, omegafold 1.40 vs 1.42, chai1 1.65 vs 1.67, esmfold 0.76 vs 0.78), and colabfold's `msa_build` stage matches the manifest MSA cost to ~0.5%. ‡ openfold, boltz2 and protenix appear 6–9× smaller here because CodeCarbon times their *inference* alone — they consume the shared MSA rather than building it, so their totals in the table above include a re-charge with no CodeCarbon stage of their own. This is an independent confirmation that per-model totals are not additive across models, not a discrepancy.
 
 **GDT_TS changed method in this export.** Values now come from `external_tmscore_matched` (TMscore binary on sequence-matched Cα atoms) rather than the earlier `internal_iterative_ca`, so they are not comparable with GDT_TS figures published before 2026-08-04. lDDT-Cα, TM-score and Cα-RMSD are unaffected.
 
@@ -234,7 +236,7 @@ The `results/` directory is intentionally clean and contains the latest export:
 Each of the eight model JSONs above carries, in addition to the single-run blocks (`aggregate_summary`, `per_protein_scores`, `per_prediction_scores`, `per_protein_runtime_metadata`, `per_protein_status`):
 
 - `n_replicates` and `primary_replicate` — how many replicates the file covers, and which one the per-protein blocks come from (`rep1`).
-- `replicates[]` — one entry per replicate with its `source_result_dir`, full `aggregate_summary`, and `cost_totals` (runtime, MSA-build, energy, CO₂).
+- `replicates[]` — one entry per replicate with its `source_result_dir`, full `aggregate_summary`, and `cost_totals`. The latter holds the manifest cost columns (`total_runtime_sec`, `inference_runtime_sec`, `msa_build_runtime_sec`, energy and CO₂) plus the CodeCarbon device breakdown: `cpu_energy_kwh`, `gpu_energy_kwh`, `ram_energy_kwh`, `gpu_share_pct`, and `codecarbon_wall_time_sec` (CodeCarbon's own stage timer, independent of the manifest runtimes; inference-only for models that consume rather than build the shared MSA).
 - `aggregate_summary_across_reps` and `cost_totals_across_reps` — per metric, `{mean, std, n_reps, values}`, where `std` is the sample standard deviation (ddof = 1) and `values` keeps the three individual replicate numbers.
 
 The four MSA cross-mode variant JSONs below are from a single run and carry no replicate blocks.

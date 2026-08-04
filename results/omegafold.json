@@ -2,7 +2,7 @@
   "model": "omegafold",
   "benchmark": "casp15_casp16_unique_lt1000_combined_8models_20260606",
   "included_in_this_export": true,
-  "exported_at_utc": "2026-08-04T09:18:00+00:00",
+  "exported_at_utc": "2026-08-04T09:29:47+00:00",
   "source_repository": "/home/chen/projects/Protein-Folding-Benchmark",
   "source_result_dir": "results/2026-06-09-combine-8models-gpu",
   "target_set": "results/2026-06-09-combine-8models-gpu/metadata/scoring_targets.csv",
@@ -5797,6 +5797,7 @@
         "cpu_energy_kwh": 0.012638556015702927,
         "gpu_energy_kwh": 0.31346973160891944,
         "ram_energy_kwh": 0.053012336275392834,
+        "codecarbon_wall_time_sec": 5462.268796732824,
         "gpu_share_pct": 82.68337617306472
       }
     },
@@ -5838,6 +5839,7 @@
         "cpu_energy_kwh": 0.05704592090166279,
         "gpu_energy_kwh": 0.2894442335329537,
         "ram_energy_kwh": 0.12614507661369115,
+        "codecarbon_wall_time_sec": 4832.266394615173,
         "gpu_share_pct": 61.24051160785554
       }
     },
@@ -5879,6 +5881,7 @@
         "cpu_energy_kwh": 0.056852459698418775,
         "gpu_energy_kwh": 0.29143662889895683,
         "ram_energy_kwh": 0.12571398401702952,
+        "codecarbon_wall_time_sec": 4815.878908157349,
         "gpu_share_pct": 61.48412230568734
       }
     }
@@ -6086,6 +6089,16 @@
     }
   },
   "cost_totals_across_reps": {
+    "codecarbon_wall_time_sec": {
+      "mean": 5036.804699835116,
+      "std": 368.55380982949885,
+      "n_reps": 3,
+      "values": {
+        "rep1": 5462.268796732824,
+        "rep2": 4832.266394615173,
+        "rep3": 4815.878908157349
+      }
+    },
     "cpu_energy_kwh": {
       "mean": 0.04217897887192817,
       "std": 0.025582939504731193,
