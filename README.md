@@ -113,24 +113,36 @@ Our 45-target set contains **33 CASP15 targets (2022)** and **12 CASP16 targets 
 
 ## Current Results
 
-Source summary: `results/benchmark_model_summary_all_models.csv`.
+Source summary: `results/benchmark_model_summary_all_models.csv`. Per-replicate values and across-replicate statistics: the `replicates`, `aggregate_summary_across_reps` and `cost_totals_across_reps` blocks in each `results/{model}.json`.
 
-**Dataset:** CASP15/CASP16 unique <1000-residue monomers · **N =** 45 targets · **Metric:** lDDT-Cα (primary) · **CO₂/job:** per target (exp = 45 targets)
+**Dataset:** CASP15/CASP16 unique <1000-residue monomers · **N =** 45 targets · **Replicates:** n = 3 · **Metric:** lDDT-Cα (primary) · **CO₂/job:** per target (exp = 45 targets)
 
 **Hardware:** 3 × NVIDIA RTX A5000 (24 GB) · Intel Xeon Gold 6240R (24c/48t) · 251 GiB RAM
 
+Every value is **mean ± sample standard deviation across three independent replicates** of the complete benchmark (2026-06-09, 2026-08-02, 2026-08-03). All **1080/1080 predictions succeeded** (45 targets × 8 models × 3 replicates).
+
 | Year | Venue        | Model     | Architecture         | Params | lDDT-Cα   | TM-score  | GDT_TS (%) | Cα-RMSD (Å) | CO₂/exp (g) | CO₂/job (g) | Time/exp (s) | Time/job (s) |
 | ---- | ------------ | --------- | -------------------- | ------ | --------- | --------- | ---------- | ----------- | ----------- | ----------- | ------------ | ------------ |
-| 2021 | Nature       | af2       | Evoformer + MSA      | 93.2 M              | 0.868     | 0.761     | 59.15      | **11.379**  | 2,103.0     | 46.73       | 77,832       | 1,729.6      |
-| 2022 | Nat. Methods | colabfold | Evoformer + MMseqs2  | 93.2 M              | **0.876** | 0.770     | **60.96**  | 11.972      | 522.2       | 11.60       | 30,126       | 669.5        |
-| 2022 | bioRxiv      | omegafold | PLM + Geoformer      | 795 M               | 0.770     | 0.669     | 47.18      | 17.345      | 180.1       | 4.00        | 5,535        | 123.0        |
-| 2023 | Science      | esmfold   | ESM-2 LM + folding   | 693 M (+2.84B ESM2) | 0.810     | 0.704     | 52.16      | 15.397      | **71.3**    | **1.58**    | **3,235**    | **71.9**     |
-| 2024 | bioRxiv      | chai1     | Diffusion (AF3-like) | 316 M (+2.84B ESM2) | 0.799     | 0.693     | 49.71      | 17.962      | 184.2       | 4.09        | 7,283        | 161.9        |
-| 2024 | Nat. Methods | openfold  | Evoformer + MSA      | 93.2 M              | 0.875     | **0.771** | 60.84      | 11.734      | 477.6       | 10.61       | 26,854       | 596.8        |
-| 2025 | bioRxiv      | boltz2    | Diffusion (AF3-like) | 521 M               | 0.864     | 0.730     | 57.57      | 17.597      | 428.4       | 9.52        | 26,442       | 587.6        |
-| 2025 | bioRxiv      | protenix  | Diffusion (AF3-like) | 368 M               | 0.871     | 0.744     | 57.50      | 15.361      | 442.3       | 9.83        | 27,555       | 612.3        |
+| 2021 | Nature       | af2       | Evoformer + MSA      | 93.2 M              | 0.8673 ± 0.0034 | 0.7626 ± 0.0026 | 70.15 ± 0.12 | **11.138 ± 0.244** | 2,090.5 †     | 46.46 †     | 77,686 †      | 1,726.3 †     |
+| 2022 | Nat. Methods | colabfold | Evoformer + MMseqs2  | 93.2 M              | **0.8760 ± 0.0002** | **0.7698 ± 0.0007** | 70.87 ± 0.03 | 11.964 ± 0.023 | 392.7 ± 112.4 | 8.73 ± 2.50 | 30,109 ± 638  | 669.1 ± 14.2  |
+| 2022 | bioRxiv      | omegafold | PLM + Geoformer      | 795 M               | 0.7697 ± 0.0000 | 0.6690 ± 0.0000 | 59.19 ± 0.00 | 17.345 ± 0.000 | 209.9 ± 25.8  | 4.66 ± 0.57 | 5,110 ± 368   | 113.6 ± 8.2   |
+| 2023 | Science      | esmfold   | ESM-2 LM + folding   | 693 M (+2.84B ESM2) | 0.8101 ± 0.0000 | 0.7042 ± 0.0000 | 64.08 ± 0.00 | 15.397 ± 0.000 | **79.3 ± 6.9**  | **1.76 ± 0.15** | **2,826 ± 355** | **62.8 ± 7.9** |
+| 2024 | bioRxiv      | chai1     | Diffusion (AF3-like) | 316 M (+2.84B ESM2) | 0.7977 ± 0.0009 | 0.6928 ± 0.0025 | 62.12 ± 0.13 | 17.479 ± 0.679 | 207.9 ± 20.5  | 4.62 ± 0.45 | 6,019 ± 1,095 | 133.8 ± 24.3  |
+| 2024 | Nat. Methods | openfold  | Evoformer + MSA      | 93.2 M              | 0.8753 ± 0.0018 | **0.7698 ± 0.0033** | **71.22 ± 0.33** | 11.695 ± 0.033 | 400.6 ± 67.2  | 8.90 ± 1.49 | 26,764 ± 615  | 594.7 ± 13.7  |
+| 2025 | bioRxiv      | boltz2    | Diffusion (AF3-like) | 521 M               | 0.8627 ± 0.0018 | 0.7321 ± 0.0026 | 68.39 ± 0.13 | 17.579 ± 0.151 | 362.1 ± 58.1  | 8.05 ± 1.29 | 26,555 ± 614  | 590.1 ± 13.6  |
+| 2025 | bioRxiv      | protenix  | Diffusion (AF3-like) | 368 M               | 0.8709 ± 0.0008 | 0.7444 ± 0.0006 | 69.45 ± 0.09 | 15.361 ± 0.001 | 377.8 ± 56.8  | 8.40 ± 1.26 | 27,808 ± 666  | 618.0 ± 14.8  |
 
-All 45/45 targets scored successfully for every model. **Bold** = best value in column (for Cα-RMSD, lower is better). GDT_TS is shown on a 0–100 scale (`gdt_ts_percent`). CO₂/exp and Time/exp are totals over all 45 targets using `total_carbon_with_shared_msa_g` / `total_time_with_shared_msa_sec` from `results/benchmark-score.csv`; per-job columns divide by 45. For the four shared-MSA models (colabfold, openfold, protenix, boltz2) the total includes the shared ColabFold/MMseqs2 MSA-build cost; each model is charged the same per-target build time even though the MSA is computed once.
+**Bold** = best value in column (for Cα-RMSD, lower is better). GDT_TS is shown on a 0–100 scale (`gdt_ts_percent`). CO₂/exp and Time/exp are totals over all 45 targets; per-job columns divide by 45. For the four shared-MSA models (colabfold, openfold, protenix, boltz2) the total includes the shared ColabFold/MMseqs2 MSA-build cost; each model is charged the same per-target build time even though the MSA is computed once, so these totals compare models to each other but are **not additive across models**. Counting the shared MSA once, a whole replicate costs **16.5 ± 0.27 h**.
+
+**colabfold and openfold are not separable in this benchmark.** colabfold leads on lDDT-Cα by 0.0007, which is smaller than openfold's own across-replicate std of 0.0018; they tie on TM-score to four decimals, and openfold leads on GDT_TS. Treat the top two as a tie rather than a ranking.
+
+**Only two of the eight models are deterministic.** esmfold and omegafold reproduce exactly across replicates (0.000000 spread on all 45 targets). At the per-target level, 152 of the 315 non-af2 (target, model) pairs exceed a 1e-3 lDDT-Cα tolerance — largest spreads boltz2 0.105, openfold 0.089, chai1 0.082, protenix 0.062, colabfold 0.0055. chai1 uses no MSA, so its spread cannot come from MSA rebuilding; that isolates genuine sampling nondeterminism in the diffusion-based models. Per-target variation nevertheless averages out at the benchmark level, where every across-replicate std is ≤ 0.0034 lDDT-Cα.
+
+† **af2's cost is a composite, not a mean.** Replicates 2 and 3 reuse replicate 1's MSA features (`features.pkl`), which saves ~20 h each. af2's MSA build is therefore measured once — 19.83 h and 1,873 g CO₂, the single largest cost item in the benchmark, exceeding an entire replicate's incremental cost — while only af2 *inference* (1.75 ± 0.04 h) has an error bar. The MSA stage is deterministic given fixed databases, so this limits the cost error bar, not accuracy.
+
+**Energy and CO₂ error bars are inflated by replicate 1.** Replicates 2 and 3 agree to within ~1% on energy, while replicate 1 is a systematic outlier in both directions by model group (~30–58% higher for the shared-MSA consumers, 14–20% lower for the MSA-free ones) even where runtime is nearly identical. This looks like a measurement or attribution difference in that run rather than run-to-run variance. The runtime columns are unaffected.
+
+**GDT_TS changed method in this export.** Values now come from `external_tmscore_matched` (TMscore binary on sequence-matched Cα atoms) rather than the earlier `internal_iterative_ca`, so they are not comparable with GDT_TS figures published before 2026-08-04. lDDT-Cα, TM-score and Cα-RMSD are unaffected.
 
 Parameter counts were measured directly from the local model weights: JAX `.npz` array sizes (summed `arr.size`) for the AF2-family models (af2, colabfold, openfold reuse the same Evoformer weights at 93.2M each); summed `tensor.numel()` over PyTorch/TorchScript checkpoint weights containers for the remaining models. `(+2.84B ESM2)` denotes the separate ESM-2 3B language model (`esm2_t36_3B_UR50D`) that `chai1` and `esmfold` load as a sequence embedder at inference; the folding-trunk parameters are listed first.
 
@@ -147,8 +159,8 @@ model label; the eight-model table above is unchanged.
 
 | Variant | Mode vs default | lDDT-Cα | TM-score | GDT_TS (%) | Cα-RMSD (Å) | CO₂/job (g) | Time/job (s) | Δ lDDT-Cα (vs base) |
 | --------------- | ---------------------------- | ------- | -------- | ---------- | ----------- | ----------- | ------------ | ------------------- |
-| chai1_msa       | **+**ColabFold MSA (default: none) | 0.562   | 0.533    | 43.89      | 24.996      | 3.29        | 141          | **−0.237** (chai1 0.799) |
-| boltz2_nomsa    | **−**MSA, single-sequence (default: MSA) | 0.421   | 0.387    | 27.12      | 29.835      | 1.31        | 67           | −0.443 (boltz2 0.864) |
+| chai1_msa       | **+**ColabFold MSA (default: none) | 0.562   | 0.533    | 43.89      | 24.996      | 3.29        | 141          | **−0.236** (chai1 0.798) |
+| boltz2_nomsa    | **−**MSA, single-sequence (default: MSA) | 0.421   | 0.387    | 27.12      | 29.835      | 1.31        | 67           | −0.442 (boltz2 0.863) |
 | colabfold_nomsa | **−**MSA, single-sequence (default: MSA) | 0.307   | 0.290    | 16.89      | 32.431      | 2.07        | 128          | −0.569 (colabfold 0.876) |
 | openfold_nomsa  | **−**MSA, single-sequence (default: MSA) | 0.307   | 0.288    | 16.92      | 32.839      | 1.92        | 70           | −0.568 (openfold 0.875) |
 
@@ -157,11 +169,11 @@ All 45/45 targets scored for every variant (mean **284 aligned Cα** per target,
 **Removing the MSA (rows 2–4)** collapses the three MSA-dependent models, as
 expected: ColabFold and OpenFold both run AlphaFold2 Evoformer weights, which
 lose almost all accuracy without an alignment (lDDT-Cα ≈ 0.31), and the Boltz-2
-diffusion trunk drops from 0.864 to 0.421. These confirm how much of each
+diffusion trunk drops from 0.863 to 0.421. These confirm how much of each
 model's accuracy is carried by the MSA.
 
 **Adding the MSA to Chai-1 (row 1) is the notable result: it makes Chai-1 worse
-on average** (0.562 vs 0.799 single-sequence). The effect is strongly bimodal —
+on average** (0.562 vs 0.798 single-sequence). The effect is strongly bimodal —
 the MSA *improves* 10/45 targets (e.g. T1145 +0.32, T1159 +0.30) but *degrades*
 22/45, several to near-unfolded structures (T1185s2 −0.72, T1185s4 −0.68,
 T1272s4 −0.67), concentrated on the multi-domain CASP subdomain targets
@@ -201,6 +213,14 @@ The `results/` directory is intentionally clean and contains the latest export:
 - `results/esmfold.json`
 - `results/omegafold.json`
 - `results/boltz2.json`
+
+Each of the eight model JSONs above carries, in addition to the single-run blocks (`aggregate_summary`, `per_protein_scores`, `per_prediction_scores`, `per_protein_runtime_metadata`, `per_protein_status`):
+
+- `n_replicates` and `primary_replicate` — how many replicates the file covers, and which one the per-protein blocks come from (`rep1`).
+- `replicates[]` — one entry per replicate with its `source_result_dir`, full `aggregate_summary`, and `cost_totals` (runtime, MSA-build, energy, CO₂).
+- `aggregate_summary_across_reps` and `cost_totals_across_reps` — per metric, `{mean, std, n_reps, values}`, where `std` is the sample standard deviation (ddof = 1) and `values` keeps the three individual replicate numbers.
+
+The four MSA cross-mode variant JSONs below are from a single run and carry no replicate blocks.
 
 MSA cross-mode variants (see the section above; separate 2026-07-09 run):
 
