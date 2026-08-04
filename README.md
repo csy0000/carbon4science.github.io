@@ -140,7 +140,24 @@ Every value is **mean ± sample standard deviation across three independent repl
 
 † **af2's cost is a composite, not a mean.** Replicates 2 and 3 reuse replicate 1's MSA features (`features.pkl`), which saves ~20 h each. af2's MSA build is therefore measured once — 19.83 h and 1,873 g CO₂, the single largest cost item in the benchmark, exceeding an entire replicate's incremental cost — while only af2 *inference* (1.75 ± 0.04 h) has an error bar. The MSA stage is deterministic given fixed databases, so this limits the cost error bar, not accuracy.
 
-**Energy and CO₂ error bars are inflated by replicate 1.** Replicates 2 and 3 agree to within ~1% on energy, while replicate 1 is a systematic outlier in both directions by model group (~30–58% higher for the shared-MSA consumers, 14–20% lower for the MSA-free ones) even where runtime is nearly identical. This looks like a measurement or attribution difference in that run rather than run-to-run variance. The runtime columns are unaffected.
+**Energy and CO₂ error bars are inflated by replicate 1, and the cause is now identified.** The per-device breakdown below shows replicate 1 assigning a mean **69.3%** of measured energy to the GPU, against **51.1%** for replicates 2 and 3 — which agree with each other to within ~1%. Replicate 1's CPU energy is 3–4× lower for most models (boltz2 0.0075 vs 0.0337/0.0339 kWh; esmfold 0.0087 vs 0.0300/0.0302; openfold 0.0081 vs 0.0350/0.0353) even though total wall-clock is nearly identical, so its CPU tracking under-measured. This is a CodeCarbon attribution difference, not run-to-run variance. **Prefer replicates 2 and 3 for any energy or CO₂ figure**; the runtime columns and all accuracy metrics are unaffected.
+
+### Energy by device (CPU / GPU / RAM)
+
+CPU / GPU / RAM energy from the per-(target, model, stage) CodeCarbon records, summed over all stages, as mean ± std across the three replicates. **This is a device split of energy, not of wall time** — no device is recorded per prediction, and a stage occupies wall-clock while both CPU and GPU are partly busy, so per-device wall time is not a defined quantity here. Per-replicate values are in each `results/{model}.json` under `replicates[].cost_totals` and `cost_totals_across_reps`.
+
+| Model | CPU (kWh) | GPU (kWh) | RAM (kWh) | GPU share (%) |
+| --------- | ---------------: | ---------------: | ---------------: | -----------: |
+| af2 †     | 0.3731 ± 0.5204 | 0.6755 ± 0.7802 | 0.8115 ± 1.1515 | 44.9 ± 10.0 |
+| colabfold | 0.0824 ± 0.0018 | 0.4571 ± 0.2356 | 0.2871 ± 0.0063 | 53.1 ± 11.4 |
+| omegafold | 0.0422 ± 0.0256 | 0.2981 ± 0.0133 | 0.1016 ± 0.0421 | 68.5 ± 12.3 |
+| chai1     | 0.0474 ± 0.0266 | 0.2745 ± 0.0233 | 0.1158 ± 0.0398 | 63.5 ± 12.3 |
+| openfold  | 0.0262 ± 0.0156 | 0.1800 ± 0.0082 | 0.0628 ± 0.0260 | 68.0 ± 12.2 |
+| boltz2    | 0.0250 ± 0.0152 | 0.1035 ± 0.0149 | 0.0594 ± 0.0265 | 57.3 ± 11.7 |
+| protenix  | 0.0362 ± 0.0232 | 0.0986 ± 0.0106 | 0.0862 ± 0.0405 | 47.7 ± 17.8 |
+| esmfold   | 0.0229 ± 0.0124 | 0.0893 ± 0.0182 | 0.0547 ± 0.0204 | 54.4 ± 16.5 |
+
+Three stages are measured: `inference` (all eight models), `msa_build` (colabfold's shared MMseqs2 search), and `msa_features` (af2's jackhmmer/HHblits stage, present in replicate 1 only — which is why af2 carries a large ± and 0.97 kWh of replicate-1 CPU energy). The wide ± on several rows is dominated by the replicate-1 attribution difference described above rather than by genuine variation.
 
 **GDT_TS changed method in this export.** Values now come from `external_tmscore_matched` (TMscore binary on sequence-matched Cα atoms) rather than the earlier `internal_iterative_ca`, so they are not comparable with GDT_TS figures published before 2026-08-04. lDDT-Cα, TM-score and Cα-RMSD are unaffected.
 
