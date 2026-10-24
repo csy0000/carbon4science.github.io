@@ -12,7 +12,7 @@ The current Carbon4Science export is the **45-target CASP15/CASP16 unique `<1000
 /home/chen/projects/Protein-Folding-Benchmark/results/2026-06-09-combine-8models-gpu
 ```
 
-It contains **360 scored protein/model rows: 45 targets × 8 scored models**. The scored models are `af2`, `colabfold`, `openfold`, `protenix`, `chai1`, `esmfold`, `omegafold`, and `boltz2`. All 45 targets are successfully predicted and scored for every model. `chai1`, `esmfold`, and `boltz2` were re-run on GPU (2026-06-09) to make all eight models GPU-measured; the other five models are unchanged from the original runs.
+It contains **405 scored protein/model rows: 45 targets × 9 scored models**. The scored models are `af2`, `af2_mmseqs2`, `colabfold`, `openfold`, `protenix`, `chai1`, `esmfold`, `omegafold`, and `boltz2`. All 45 targets are successfully predicted and scored for every model. `chai1`, `esmfold`, and `boltz2` were re-run on GPU (2026-06-09) to make all eight models GPU-measured; the other five models are unchanged from the original runs. `af2_mmseqs2` (official AlphaFold2 on the shared ColabFold/MMseqs2 MSA, no templates) was added on 2026-10-24.
 
 ## Dataset
 
@@ -68,6 +68,7 @@ Scoring reports:
 | Model | Mode / MSA in current export | Notes |
 |---|---|---|
 | `af2` | MSA; `official_af2_database_search` | official DeepMind AlphaFold2 database search; split MSA/features and JAX inference carbon accounting |
+| `af2_mmseqs2` | MSA; `shared_precomputed_msa` | official DeepMind AlphaFold2 code and `params_model_1` (same as `af2`) on the shared ColabFold/MMseqs2 A3M, no templates; charged the shared MSA-build cost like openfold/protenix/boltz2 |
 | `colabfold` | MSA; `shared_precomputed_msa` | reuses precomputed ColabFold/MMseqs2 A3M metadata from the benchmark run |
 | `openfold` | MSA; `shared_precomputed_msa` | loads AlphaFold2 `params_model_1` weights through the OpenFold inference engine (weights byte-identical to `af2`; see Training-data cutoffs) |
 | `protenix` | MSA; `shared_precomputed_msa` | ByteDance AF3-like diffusion model; reuses ColabFold/MMseqs2 A3M |
@@ -83,6 +84,7 @@ Training-run timestamps are not embedded in any checkpoint. The benchmark-releva
 | Model | PDB cutoff | Status | Source |
 |---|---|---|---|
 | af2 | 2018-04-30 | Confirmed | [Jumper et al. 2021 suppl.](https://www.nature.com/articles/s41586-021-03819-2) (CASP13-aligned monomer training cutoff) |
+| af2_mmseqs2 | 2018-04-30 | Confirmed | same AF2 `params_model_1` weights as `af2` |
 | colabfold | 2018-04-30 | Confirmed | inherits AF2 `alphafold2_ptm` weights → same cutoff |
 | openfold | 2018-04-30 | Confirmed | **this benchmark** runs AF2 `params_model_1` weights via the OpenFold engine; not OpenFold's own retrained (Dec-2021) checkpoint |
 | esmfold | 2020-05-01 | Confirmed | folding-head PDB cutoff; [Lin et al. 2023](https://www.science.org/doi/10.1126/science.ade2574) |
@@ -119,22 +121,25 @@ Source summary: `results/benchmark_model_summary_all_models.csv`. Per-replicate 
 
 **Hardware:** 3 × NVIDIA RTX A5000 (24 GB) · Intel Xeon Gold 6240R (24c/48t) · 251 GiB RAM
 
-Every value is **mean ± sample standard deviation across three independent replicates** of the complete benchmark (2026-06-09, 2026-08-02, 2026-08-03). All **1080/1080 predictions succeeded** (45 targets × 8 models × 3 replicates).
+Every value is **mean ± sample standard deviation across three independent replicates** of the complete benchmark (2026-06-09, 2026-08-02, 2026-08-03). All **1080/1080 predictions succeeded** (45 targets × 8 models × 3 replicates). `af2_mmseqs2` was added to the same three replicates on 2026-10-24 (135/135 succeeded); the other eight models' values are unchanged.
 
-| Year | Venue        | Model     | Architecture         | Params | lDDT-Cα   | TM-score  | GDT_TS (%) | Cα-RMSD (Å) | CO₂/exp (g) | CO₂/job (g) | Time/exp (s) | Time/job (s) |
-| ---- | ------------ | --------- | -------------------- | ------ | --------- | --------- | ---------- | ----------- | ----------- | ----------- | ------------ | ------------ |
-| 2021 | Nature       | af2       | Evoformer + MSA      | 93.2 M              | 0.8673 ± 0.0034 | 0.7626 ± 0.0026 | 70.15 ± 0.12 | **11.138 ± 0.244** | 2,090.5 †     | 46.46 †     | 77,686 †      | 1,726.3 †     |
-| 2022 | Nat. Methods | colabfold | Evoformer + MMseqs2  | 93.2 M              | **0.8760 ± 0.0002** | **0.7698 ± 0.0007** | 70.87 ± 0.03 | 11.964 ± 0.023 | 392.7 ± 112.4 | 8.73 ± 2.50 | 30,109 ± 638  | 669.1 ± 14.2  |
-| 2022 | bioRxiv      | omegafold | PLM + Geoformer      | 795 M               | 0.7697 ± 0.0000 | 0.6690 ± 0.0000 | 59.19 ± 0.00 | 17.345 ± 0.000 | 209.9 ± 25.8  | 4.66 ± 0.57 | 5,110 ± 368   | 113.6 ± 8.2   |
-| 2023 | Science      | esmfold   | ESM-2 LM + folding   | 693 M (+2.84B ESM2) | 0.8101 ± 0.0000 | 0.7042 ± 0.0000 | 64.08 ± 0.00 | 15.397 ± 0.000 | **79.3 ± 6.9**  | **1.76 ± 0.15** | **2,826 ± 355** | **62.8 ± 7.9** |
-| 2024 | bioRxiv      | chai1     | Diffusion (AF3-like) | 316 M (+2.84B ESM2) | 0.7977 ± 0.0009 | 0.6928 ± 0.0025 | 62.12 ± 0.13 | 17.479 ± 0.679 | 207.9 ± 20.5  | 4.62 ± 0.45 | 6,019 ± 1,095 | 133.8 ± 24.3  |
-| 2024 | Nat. Methods | openfold  | Evoformer + MSA      | 93.2 M              | 0.8753 ± 0.0018 | **0.7698 ± 0.0033** | **71.22 ± 0.33** | 11.695 ± 0.033 | 400.6 ± 67.2  | 8.90 ± 1.49 | 26,764 ± 615  | 594.7 ± 13.7  |
-| 2025 | bioRxiv      | boltz2    | Diffusion (AF3-like) | 521 M               | 0.8627 ± 0.0018 | 0.7321 ± 0.0026 | 68.39 ± 0.13 | 17.579 ± 0.151 | 362.1 ± 58.1  | 8.05 ± 1.29 | 26,555 ± 614  | 590.1 ± 13.6  |
-| 2025 | bioRxiv      | protenix  | Diffusion (AF3-like) | 368 M               | 0.8709 ± 0.0008 | 0.7444 ± 0.0006 | 69.45 ± 0.09 | 15.361 ± 0.001 | 377.8 ± 56.8  | 8.40 ± 1.26 | 27,808 ± 666  | 618.0 ± 14.8  |
+| Year | Venue | Model | Architecture | Params | lDDT-Cα | TM-score | GDT_TS (%) | Cα-RMSD (Å) | MSA CO₂/exp (g) | Folding CO₂/exp (g) | CO₂/exp (g) | CO₂/job (g) | MSA time/exp (s) | Folding time/exp (s) | Time/exp (s) | Time/job (s) |
+| --- | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
+| 2021 | Nature | af2 | Evoformer + MSA | 93.2 M | 0.8673 ± 0.0034 | 0.7626 ± 0.0026 | 70.15 ± 0.12 | **11.138 ± 0.244** | 1,873.1 (n=1) † | 217.4 ± 13.3 | 2,090.5 † | 46.46 † | 71,397 (n=1) † | 6,289 ± 127 | 77,686 † | 1,726.3 † |
+| 2021 | Nature | af2_mmseqs2 | Evoformer + MMseqs2 | 93.2 M | 0.8752 ± 0.0014 | 0.7687 ± 0.0022 | **71.23 ± 0.37** | 11.794 ± 0.105 | 272.9 ± 83.9 | 213.0 ± 0.4 | 485.8 ± 84.3 | 10.80 ± 1.87 | 23,589 ± 613 | 6,183 ± 12 | 29,772 ± 617 | 661.6 ± 13.7 |
+| 2022 | Nat. Methods | colabfold | Evoformer + MMseqs2 | 93.2 M | **0.8760 ± 0.0002** | **0.7698 ± 0.0007** | 70.87 ± 0.03 | 11.964 ± 0.023 | 272.9 ± 83.9 | 119.8 ± 28.5 | 392.7 ± 112.4 | 8.73 ± 2.50 | 23,589 ± 613 | 6,520 ± 150 | 30,109 ± 638 | 669.1 ± 14.2 |
+| 2022 | bioRxiv | omegafold | PLM + Geoformer | 795 M | 0.7697 ± 0.0000 | 0.6690 ± 0.0000 | 59.19 ± 0.00 | 17.345 ± 0.000 | — | 209.9 ± 25.8 | 209.9 ± 25.8 | 4.66 ± 0.57 | — | 5,110 ± 368 | 5,110 ± 368 | 113.6 ± 8.2 |
+| 2023 | Science | esmfold | ESM-2 LM + folding | 693 M (+2.84B ESM2) | 0.8101 ± 0.0000 | 0.7042 ± 0.0000 | 64.08 ± 0.00 | 15.397 ± 0.000 | — | **79.3 ± 6.9** | **79.3 ± 6.9** | **1.76 ± 0.15** | — | **2,826 ± 355** | **2,826 ± 355** | **62.8 ± 7.9** |
+| 2024 | bioRxiv | chai1 | Diffusion (AF3-like) | 316 M (+2.84B ESM2) | 0.7977 ± 0.0009 | 0.6928 ± 0.0025 | 62.12 ± 0.13 | 17.479 ± 0.679 | — | 207.9 ± 20.5 | 207.9 ± 20.5 | 4.62 ± 0.45 | — | 6,019 ± 1,095 | 6,019 ± 1,095 | 133.8 ± 24.3 |
+| 2024 | Nat. Methods | openfold | Evoformer + MSA | 93.2 M | 0.8753 ± 0.0018 | **0.7698 ± 0.0033** | 71.22 ± 0.33 | 11.695 ± 0.033 | 272.9 ± 83.9 | 127.7 ± 17.2 | 400.6 ± 67.2 | 8.90 ± 1.49 | 23,589 ± 613 | 3,174 ± 209 | 26,764 ± 615 | 594.7 ± 13.7 |
+| 2025 | bioRxiv | boltz2 | Diffusion (AF3-like) | 521 M | 0.8627 ± 0.0018 | 0.7321 ± 0.0026 | 68.39 ± 0.13 | 17.579 ± 0.151 | 272.9 ± 83.9 | 89.3 ± 26.4 | 362.1 ± 58.1 | 8.05 ± 1.29 | 23,589 ± 613 | 2,966 ± 33 | 26,555 ± 614 | 590.1 ± 13.6 |
+| 2025 | bioRxiv | protenix | Diffusion (AF3-like) | 368 M | 0.8709 ± 0.0008 | 0.7444 ± 0.0006 | 69.45 ± 0.09 | 15.361 ± 0.001 | 272.9 ± 83.9 | 105.0 ± 28.3 | 377.8 ± 56.8 | 8.40 ± 1.26 | 23,589 ± 613 | 4,219 ± 94 | 27,808 ± 666 | 618.0 ± 14.8 |
 
-**Bold** = best value in column (for Cα-RMSD, lower is better). GDT_TS is shown on a 0–100 scale (`gdt_ts_percent`). CO₂/exp and Time/exp are totals over all 45 targets; per-job columns divide by 45. For the four shared-MSA models (colabfold, openfold, protenix, boltz2) the total includes the shared ColabFold/MMseqs2 MSA-build cost; each model is charged the same per-target build time even though the MSA is computed once, so these totals compare models to each other but are **not additive across models**. Counting the shared MSA once, a whole replicate costs **16.5 ± 0.27 h**.
+**Bold** = best value in column (for Cα-RMSD, lower is better). GDT_TS is shown on a 0–100 scale (`gdt_ts_percent`). CO₂/exp and Time/exp are totals over all 45 targets; per-job columns divide by 45. **Each total is MSA + folding**: the MSA columns are the MSA build (the shared ColabFold/GPU-MMseqs2 search for colabfold, openfold, protenix, boltz2 and af2_mmseqs2; the jackhmmer/HHblits/HHsearch search for af2; none for the MSA-free models) and the folding columns are model inference. For the five shared-MSA models (colabfold, openfold, protenix, boltz2, af2_mmseqs2) the total includes the shared ColabFold/MMseqs2 MSA-build cost; each model is charged the same per-target build time even though the MSA is computed once, so these totals compare models to each other but are **not additive across models**. Counting the shared MSA once, a whole replicate costs **16.5 ± 0.27 h** for the eight original models and **18.2 ± 0.27 h** with af2_mmseqs2 (replicates 2 and 3).
 
-**colabfold and openfold are not separable in this benchmark.** colabfold leads on lDDT-Cα by 0.0007, which is smaller than openfold's own across-replicate std of 0.0018; they tie on TM-score to four decimals, and openfold leads on GDT_TS. Treat the top two as a tie rather than a ranking.
+**af2_mmseqs2 is official AlphaFold2 run like the other MSA-based models.** It uses the same DeepMind AlphaFold2 code, `params_model_1` weights and per-replicate seed as `af2`, but takes the replicate's shared ColabFold/GPU-MMseqs2 alignment and no templates, where `af2` runs its own jackhmmer/HHblits database search plus pdb70 templates. Its cost is that replicate's ColabFold MSA build for each target plus AF2 inference (6.55 ± 0.17 h + 1.72 ± 0.00 h = 8.27 ± 0.17 h), so like the other shared-MSA models it is not additive. On these targets the swap does not cost AF2 accuracy: the paired per-target difference against `af2` is +0.0079 ± 0.0359 lDDT-Cα (better on 11 targets, worse on 6, within ±0.01 on 28; much of the mean comes from T1266, +0.20), at 8.3 h instead of ~21.6 h. It was run after the original replicates, on the same machine; its inference spread is therefore same-day (±0.4 g CO₂), and its CO₂ ± comes from the charged ColabFold MSA.
+
+**colabfold, openfold and af2_mmseqs2 are not separable in this benchmark.** colabfold leads on lDDT-Cα by 0.0007–0.0008, which is smaller than openfold's and af2_mmseqs2's own across-replicate stds (0.0018, 0.0014); colabfold and openfold tie on TM-score to four decimals, and af2_mmseqs2 and openfold tie on GDT_TS (71.23 vs 71.22). Treat the top three as a tie rather than a ranking.
 
 **Only two of the eight models are deterministic.** esmfold and omegafold reproduce exactly across replicates (0.000000 spread on all 45 targets). At the per-target level, 152 of the 315 non-af2 (target, model) pairs exceed a 1e-3 lDDT-Cα tolerance — largest spreads boltz2 0.105, openfold 0.089, chai1 0.082, protenix 0.062, colabfold 0.0055. chai1 uses no MSA, so its spread cannot come from MSA rebuilding; that isolates genuine sampling nondeterminism in the diffusion-based models. Per-target variation nevertheless averages out at the benchmark level, where every across-replicate std is ≤ 0.0034 lDDT-Cα.
 
@@ -146,13 +151,14 @@ Every value is **mean ± sample standard deviation across three independent repl
 
 CPU / GPU / RAM energy from the per-(target, model, stage) CodeCarbon records, summed over all stages, as mean ± std across the three replicates. **This is a device split of energy, not of wall time** — no device is recorded per prediction, and a stage occupies wall-clock while both CPU and GPU are partly busy, so per-device wall time is not a defined quantity here. Per-replicate values are in each `results/{model}.json` under `replicates[].cost_totals` and `cost_totals_across_reps`.
 
-As in the Current Results table, the shared ColabFold MSA is **charged to every model that consumes it** (openfold, boltz2, protenix) even though it is built once, under colabfold — so these figures compare models to each other but are **not additive across models**.
+As in the Current Results table, the shared ColabFold MSA is **charged to every model that consumes it** (openfold, boltz2, protenix, af2_mmseqs2) even though it is built once, under colabfold — so these figures compare models to each other but are **not additive across models**.
 
 | Model | CPU (kWh) | GPU (kWh) | RAM (kWh) | GPU share (%) | Measured wall time (h) |
 | --------- | ---------------: | ---------------: | ---------------: | -----------: | ----------------: |
 | af2 — MSA build (n=1) † | 0.8987 | 1.3230 | 1.9858 | 31.4 | 21.15 |
 | af2 — inference (n=3) | 0.0736 ± 0.0015 | 0.2345 ± 0.0230 | 0.1496 ± 0.0050 | 51.2 | 1.73 ± 0.04 |
 | colabfold | 0.0824 ± 0.0018 | 0.4571 ± 0.2356 | 0.2871 ± 0.0063 | 53.1 ± 11.4 | 8.31 ± 0.18 |
+| af2_mmseqs2 | 0.1254 ± 0.0017 | 0.5268 ± 0.1780 | 0.3705 ± 0.0059 | 50.6 ± 7.9 | 8.22 ± 0.17 |
 | protenix | 0.0893 ± 0.0237 | 0.3952 ± 0.1832 | 0.3109 ± 0.0421 | 48.2 ± 14.6 | 7.67 ± 0.18 |
 | openfold | 0.0793 ± 0.0161 | 0.4766 ± 0.1838 | 0.2874 ± 0.0278 | 55.2 ± 11.5 | 7.38 ± 0.17 |
 | boltz2 | 0.0782 ± 0.0157 | 0.4001 ± 0.1644 | 0.2841 ± 0.0282 | 51.2 ± 12.3 | 7.32 ± 0.17 |
@@ -160,15 +166,15 @@ As in the Current Results table, the shared ColabFold MSA is **charged to every 
 | omegafold | 0.0422 ± 0.0256 | 0.2981 ± 0.0133 | 0.1016 ± 0.0421 | 68.5 ± 12.3 | 1.40 ± 0.10 |
 | esmfold | 0.0229 ± 0.0124 | 0.0893 ± 0.0182 | 0.0547 ± 0.0204 | 54.4 ± 16.5 | 0.76 ± 0.10 |
 
-Three stages are measured: `inference` (all eight models), `msa_build` (colabfold's shared MMseqs2 search, charged on to its three consumers), and `msa_features` (af2's jackhmmer/HHblits stage, present in replicate 1 only). The wide ± on several energy rows is dominated by the replicate-1 attribution difference described above rather than by genuine variation.
+Three stages are measured: `inference` (all nine models), `msa_build` (colabfold's shared MMseqs2 search, charged on to its four consumers), and `msa_features` (af2's jackhmmer/HHblits stage, present in replicate 1 only). The wide ± on several energy rows is dominated by the replicate-1 attribution difference described above rather than by genuine variation.
 
 † **af2 is split into two rows because a mean across its replicates would be meaningless.** Replicate 1 built the MSA while replicates 2 and 3 reused `features.pkl`, so af2's per-replicate totals are 22.92 / 1.71 / 1.71 h. Averaging them gives 8.78 ± 12.24 h — a standard deviation larger than the mean, and RAM energy is more extreme still (2.1412 / 0.1467 / 0.1467 kWh, CV = 1.42). That is arithmetically correct for a sample whose largest value is ~15× the other two, but it summarises a mixture of two different experiments rather than a distribution, so no ± over it is interpretable. Split by stage, both halves are well behaved: the MSA build is a single n=1 measurement and af2 inference reproduces to ±1–3%.
 
-The wall-time column is CodeCarbon's own stage timer, measured independently of the runtime columns in the Current Results table, so the two cross-check each other. With the shared MSA charged on, all four shared-MSA models agree with their Current Results totals to within 0.6% (colabfold 8.31 vs 8.36 h, protenix 7.67 vs 7.72, openfold 7.38 vs 7.43, boltz2 7.32 vs 7.38), as do the MSA-free models (chai1 1.65 vs 1.67, omegafold 1.40 vs 1.42, esmfold 0.76 vs 0.78).
+The wall-time column is CodeCarbon's own stage timer, measured independently of the runtime columns in the Current Results table, so the two cross-check each other. With the shared MSA charged on, all five shared-MSA models agree with their Current Results totals to within 0.6% (colabfold 8.31 vs 8.36 h, af2_mmseqs2 8.22 vs 8.27, protenix 7.67 vs 7.72, openfold 7.38 vs 7.43, boltz2 7.32 vs 7.38), as do the MSA-free models (chai1 1.65 vs 1.67, omegafold 1.40 vs 1.42, esmfold 0.76 vs 0.78).
 
 **GDT_TS changed method in this export.** Values now come from `external_tmscore_matched` (TMscore binary on sequence-matched Cα atoms) rather than the earlier `internal_iterative_ca`, so they are not comparable with GDT_TS figures published before 2026-08-04. lDDT-Cα, TM-score and Cα-RMSD are unaffected.
 
-Parameter counts were measured directly from the local model weights: JAX `.npz` array sizes (summed `arr.size`) for the AF2-family models (af2, colabfold, openfold reuse the same Evoformer weights at 93.2M each); summed `tensor.numel()` over PyTorch/TorchScript checkpoint weights containers for the remaining models. `(+2.84B ESM2)` denotes the separate ESM-2 3B language model (`esm2_t36_3B_UR50D`) that `chai1` and `esmfold` load as a sequence embedder at inference; the folding-trunk parameters are listed first.
+Parameter counts were measured directly from the local model weights: JAX `.npz` array sizes (summed `arr.size`) for the AF2-family models (af2, af2_mmseqs2, colabfold, openfold reuse the same Evoformer weights at 93.2M each); summed `tensor.numel()` over PyTorch/TorchScript checkpoint weights containers for the remaining models. `(+2.84B ESM2)` denotes the separate ESM-2 3B language model (`esm2_t36_3B_UR50D`) that `chai1` and `esmfold` load as a sequence embedder at inference; the folding-trunk parameters are listed first.
 
 ## MSA Cross-Mode Variants (2026-07-09)
 

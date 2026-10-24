@@ -1,15 +1,15 @@
 key,value
-exported_at_utc,2026-08-04T11:19:14+00:00
+exported_at_utc,2026-10-24T19:33:43+00:00
 benchmark_name,casp15_casp16_unique_lt1000_combined_8models_20260606
-source_result_dir,results/2026-06-09-combine-8models-gpu
-target_set,results/2026-06-09-combine-8models-gpu/metadata/scoring_targets.csv
+source_result_dir,results/20261024_combine-9models-gpu_rep1
+target_set,results/20261024_combine-9models-gpu_rep1/metadata/scoring_targets.csv
 dataset_file,results/benchmark-dataset.csv
 n_dataset_rows,45
 n_targets,45
-n_models,8
-n_model_json_files,8
-n_score_rows,360
-n_metadata_rows_all,360
+n_models,9
+n_model_json_files,9
+n_score_rows,405
+n_metadata_rows_all,405
 match_mode,sequence
 score_scale_GDT_TS,0-1; higher is better
 score_scale_GDT_TS_percent,0-100; higher is better
