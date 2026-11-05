@@ -2,7 +2,7 @@
   "model": "af2",
   "benchmark": "casp15_casp16_unique_lt1000_combined_8models_20260606",
   "included_in_this_export": true,
-  "exported_at_utc": "2026-10-24T19:33:43+00:00",
+  "exported_at_utc": "2026-11-05T06:31:11+00:00",
   "source_repository": "/home/chen/projects/Protein-Folding-Benchmark",
   "source_result_dir": "results/20261024_combine-9models-gpu_rep1",
   "target_set": "results/20261024_combine-9models-gpu_rep1/metadata/scoring_targets.csv",
@@ -5808,173 +5808,175 @@
     {
       "replicate": "rep2",
       "is_primary": false,
-      "source_result_dir": "results/20261024_combine-9models-gpu_rep2",
+      "source_result_dir": "results/20261105_combine-9models-gpu_rep2",
       "stages_run": [
-        "inference"
+        "inference",
+        "msa_features"
       ],
       "aggregate_summary": {
         "model": "af2",
         "n_targets": 45.0,
         "n_targets_success": 45.0,
         "n_total_predictions": 45.0,
-        "mean_best_lddt_ca": 0.8703286738558065,
-        "std_best_lddt_ca": 0.09984713534462053,
-        "mean_best_tmalign_tm_score_ref": 0.7655797777777777,
-        "std_best_tmalign_tm_score_ref": 0.22403869313224453,
-        "mean_best_tmalign_rmsd": 2.5124444444444443,
-        "std_best_tmalign_rmsd": 1.4533146370774068,
-        "mean_best_gdt_ts": 0.7027844444444445,
-        "mean_best_GDT_TS": 0.7027844444444445,
-        "std_best_gdt_ts": 0.24644648778879838,
-        "std_best_GDT_TS": 0.24644648778879838,
-        "mean_best_gdt_ts_percent": 70.27844444444443,
-        "mean_best_GDT_TS_percent": 70.27844444444443,
-        "std_best_gdt_ts_percent": 24.644648778879834,
-        "std_best_GDT_TS_percent": 24.644648778879834,
-        "mean_best_ca_rmsd": 10.890380200232233,
-        "std_best_ca_rmsd": 14.604933899968099,
+        "mean_best_lddt_ca": 0.8669756722434503,
+        "std_best_lddt_ca": 0.10582332280722108,
+        "mean_best_tmalign_tm_score_ref": 0.760528,
+        "std_best_tmalign_tm_score_ref": 0.224245257116156,
+        "mean_best_tmalign_rmsd": 2.5279999999999996,
+        "std_best_tmalign_rmsd": 1.4965606023023714,
+        "mean_best_gdt_ts": 0.6992444444444446,
+        "mean_best_GDT_TS": 0.6992444444444446,
+        "std_best_gdt_ts": 0.24871991782978004,
+        "std_best_GDT_TS": 0.24871991782978004,
+        "mean_best_gdt_ts_percent": 69.92444444444445,
+        "mean_best_GDT_TS_percent": 69.92444444444445,
+        "std_best_gdt_ts_percent": 24.871991782978004,
+        "std_best_GDT_TS_percent": 24.871991782978004,
+        "mean_best_ca_rmsd": 11.217916381574225,
+        "std_best_ca_rmsd": 14.580789499609956,
         "mean_n_success": 1.0
       },
       "cost_totals": {
-        "total_runtime_sec": 6208.712160000001,
-        "inference_runtime_sec": 6208.712160000001,
-        "msa_build_runtime_sec": 0.0,
-        "total_energy_consumed_kwh": 0.4282043287672704,
-        "inference_energy_consumed_kwh": 0.4282043287672704,
-        "total_carbon_emissions_g": 203.39705616445337,
-        "inference_carbon_emissions_g": 203.39705616445337,
-        "cpu_energy_kwh": 0.07260732793096039,
-        "gpu_energy_kwh": 0.20885847018275444,
-        "ram_energy_kwh": 0.14673853065355544,
-        "codecarbon_wall_time_sec": 6150.485808372498,
-        "gpu_share_pct": 48.77542242135281
+        "total_runtime_sec": 77516.01278899999,
+        "inference_runtime_sec": 6267.0657260000025,
+        "msa_build_runtime_sec": 71248.94706299999,
+        "total_energy_consumed_kwh": 4.309252155250473,
+        "inference_energy_consumed_kwh": 0.4597048873313282,
+        "total_carbon_emissions_g": 2046.8947737439746,
+        "inference_carbon_emissions_g": 218.35982148238082,
+        "cpu_energy_kwh": 0.9420356005198429,
+        "gpu_energy_kwh": 1.4261861247096346,
+        "ram_energy_kwh": 2.0701394763478973,
+        "codecarbon_wall_time_sec": 79797.93548440933,
+        "gpu_share_pct": 32.13316942755299
       }
     },
     {
       "replicate": "rep3",
       "is_primary": false,
-      "source_result_dir": "results/20261024_combine-9models-gpu_rep3",
+      "source_result_dir": "results/20261105_combine-9models-gpu_rep3",
       "stages_run": [
-        "inference"
+        "inference",
+        "msa_features"
       ],
       "aggregate_summary": {
         "model": "af2",
         "n_targets": 45.0,
         "n_targets_success": 45.0,
         "n_total_predictions": 45.0,
-        "mean_best_lddt_ca": 0.8635339115963819,
-        "std_best_lddt_ca": 0.10990398537096784,
-        "mean_best_tmalign_tm_score_ref": 0.7612224444444444,
-        "std_best_tmalign_tm_score_ref": 0.220450568002274,
-        "mean_best_tmalign_rmsd": 2.5024444444444445,
-        "std_best_tmalign_rmsd": 1.4738665221968117,
-        "mean_best_gdt_ts": 0.7005133333333333,
-        "mean_best_GDT_TS": 0.7005133333333333,
-        "std_best_gdt_ts": 0.24257554455917818,
-        "std_best_GDT_TS": 0.24257554455917818,
-        "mean_best_gdt_ts_percent": 70.05133333333335,
-        "mean_best_GDT_TS_percent": 70.05133333333335,
-        "std_best_gdt_ts_percent": 24.257554455917813,
-        "std_best_GDT_TS_percent": 24.257554455917813,
-        "mean_best_ca_rmsd": 11.144883557093694,
-        "std_best_ca_rmsd": 14.478583727050424,
+        "mean_best_lddt_ca": 0.8678162908399194,
+        "std_best_lddt_ca": 0.10642845831685657,
+        "mean_best_tmalign_tm_score_ref": 0.7634404444444445,
+        "std_best_tmalign_tm_score_ref": 0.22167884892088574,
+        "mean_best_tmalign_rmsd": 2.4951111111111106,
+        "std_best_tmalign_rmsd": 1.5072968312093464,
+        "mean_best_gdt_ts": 0.7034022222222222,
+        "mean_best_GDT_TS": 0.7034022222222222,
+        "std_best_gdt_ts": 0.24544340440858614,
+        "std_best_GDT_TS": 0.24544340440858614,
+        "mean_best_gdt_ts_percent": 70.34022222222222,
+        "mean_best_GDT_TS_percent": 70.34022222222222,
+        "std_best_gdt_ts_percent": 24.544340440858615,
+        "std_best_GDT_TS_percent": 24.544340440858615,
+        "mean_best_ca_rmsd": 11.067169312475302,
+        "std_best_ca_rmsd": 14.459084643404532,
         "mean_n_success": 1.0
       },
       "cost_totals": {
-        "total_runtime_sec": 6221.682734999999,
-        "inference_runtime_sec": 6221.682734999999,
-        "msa_build_runtime_sec": 0.0,
-        "total_energy_consumed_kwh": 0.46099248321267705,
-        "inference_energy_consumed_kwh": 0.46099248321267705,
-        "total_carbon_emissions_g": 218.9714295260216,
-        "inference_carbon_emissions_g": 218.9714295260216,
-        "cpu_energy_kwh": 0.0727571704528398,
-        "gpu_energy_kwh": 0.24152024568680802,
-        "ram_energy_kwh": 0.14671506707302923,
-        "codecarbon_wall_time_sec": 6163.178414821625,
-        "gpu_share_pct": 52.39136308766744
+        "total_runtime_sec": 77578.859505,
+        "inference_runtime_sec": 6256.141110999997,
+        "msa_build_runtime_sec": 71322.71839399998,
+        "total_energy_consumed_kwh": 4.3143632799848834,
+        "inference_energy_consumed_kwh": 0.4579599088497206,
+        "total_carbon_emissions_g": 2049.322557992819,
+        "inference_carbon_emissions_g": 217.53095670361722,
+        "cpu_energy_kwh": 0.9427574820712212,
+        "gpu_energy_kwh": 1.4251038494464634,
+        "ram_energy_kwh": 2.075563328852583,
+        "codecarbon_wall_time_sec": 79859.07928967476,
+        "gpu_share_pct": 32.07219562326753
       }
     }
   ],
   "aggregate_summary_across_reps": {
     "mean_best_GDT_TS": {
-      "mean": 0.7015377777777778,
-      "std": 0.0011517480005584035,
+      "mean": 0.7013207407407407,
+      "std": 0.0020788937387356647,
       "n_reps": 3,
       "values": {
         "rep1": 0.7013155555555555,
-        "rep2": 0.7027844444444445,
-        "rep3": 0.7005133333333333
+        "rep2": 0.6992444444444446,
+        "rep3": 0.7034022222222222
       }
     },
     "mean_best_GDT_TS_percent": {
-      "mean": 70.15377777777778,
-      "std": 0.11517480005582142,
+      "mean": 70.13207407407407,
+      "std": 0.20788937387357515,
       "n_reps": 3,
       "values": {
         "rep1": 70.13155555555555,
-        "rep2": 70.27844444444443,
-        "rep3": 70.05133333333335
+        "rep2": 69.92444444444445,
+        "rep3": 70.34022222222222
       }
     },
     "mean_best_ca_rmsd": {
-      "mean": 11.138146128866547,
-      "std": 0.24446685495141146,
+      "mean": 11.221420107774415,
+      "std": 0.15603216495512753,
       "n_reps": 3,
       "values": {
         "rep1": 11.379174629273717,
-        "rep2": 10.890380200232233,
-        "rep3": 11.144883557093694
+        "rep2": 11.217916381574225,
+        "rep3": 11.067169312475302
       }
     },
     "mean_best_gdt_ts": {
-      "mean": 0.7015377777777778,
-      "std": 0.0011517480005584035,
+      "mean": 0.7013207407407407,
+      "std": 0.0020788937387356647,
       "n_reps": 3,
       "values": {
         "rep1": 0.7013155555555555,
-        "rep2": 0.7027844444444445,
-        "rep3": 0.7005133333333333
+        "rep2": 0.6992444444444446,
+        "rep3": 0.7034022222222222
       }
     },
     "mean_best_gdt_ts_percent": {
-      "mean": 70.15377777777778,
-      "std": 0.11517480005582142,
+      "mean": 70.13207407407407,
+      "std": 0.20788937387357515,
       "n_reps": 3,
       "values": {
         "rep1": 70.13155555555555,
-        "rep2": 70.27844444444443,
-        "rep3": 70.05133333333335
+        "rep2": 69.92444444444445,
+        "rep3": 70.34022222222222
       }
     },
     "mean_best_lddt_ca": {
-      "mean": 0.8672743861765527,
-      "std": 0.003448961856525507,
+      "mean": 0.8675841787202799,
+      "std": 0.0005318970203675471,
       "n_reps": 3,
       "values": {
         "rep1": 0.8679605730774701,
-        "rep2": 0.8703286738558065,
-        "rep3": 0.8635339115963819
+        "rep2": 0.8669756722434503,
+        "rep3": 0.8678162908399194
       }
     },
     "mean_best_tmalign_rmsd": {
-      "mean": 2.498962962962963,
-      "std": 0.015517943947641439,
+      "mean": 2.5017037037037033,
+      "std": 0.023698031728793995,
       "n_reps": 3,
       "values": {
         "rep1": 2.4819999999999998,
-        "rep2": 2.5124444444444443,
-        "rep3": 2.5024444444444445
+        "rep2": 2.5279999999999996,
+        "rep3": 2.4951111111111106
       }
     },
     "mean_best_tmalign_tm_score_ref": {
-      "mean": 0.7626268148148148,
-      "std": 0.002558357423781724,
+      "mean": 0.7616822222222223,
+      "std": 0.0015473187003633023,
       "n_reps": 3,
       "values": {
         "rep1": 0.7610782222222221,
-        "rep2": 0.7655797777777777,
-        "rep3": 0.7612224444444444
+        "rep2": 0.760528,
+        "rep3": 0.7634404444444445
       }
     },
     "mean_n_success": {
@@ -6018,208 +6020,208 @@
       }
     },
     "std_best_GDT_TS": {
-      "mean": 0.2441034424775811,
-      "std": 0.0020601940019679345,
+      "mean": 0.24581720577437763,
+      "std": 0.002735036929702621,
       "n_reps": 3,
       "values": {
         "rep1": 0.24328829508476674,
-        "rep2": 0.24644648778879838,
-        "rep3": 0.24257554455917818
+        "rep2": 0.24871991782978004,
+        "rep3": 0.24544340440858614
       }
     },
     "std_best_GDT_TS_percent": {
-      "mean": 24.410344247758104,
-      "std": 0.2060194001967931,
+      "mean": 24.581720577437764,
+      "std": 0.27350369297026245,
       "n_reps": 3,
       "values": {
         "rep1": 24.328829508476673,
-        "rep2": 24.644648778879834,
-        "rep3": 24.257554455917813
+        "rep2": 24.871991782978004,
+        "rep3": 24.544340440858615
       }
     },
     "std_best_ca_rmsd": {
-      "mean": 14.576753100279866,
-      "std": 0.087549368180654,
+      "mean": 14.562205272278524,
+      "std": 0.09519884660708285,
       "n_reps": 3,
       "values": {
         "rep1": 14.646741673821078,
-        "rep2": 14.604933899968099,
-        "rep3": 14.478583727050424
+        "rep2": 14.580789499609956,
+        "rep3": 14.459084643404532
       }
     },
     "std_best_gdt_ts": {
-      "mean": 0.2441034424775811,
-      "std": 0.0020601940019679345,
+      "mean": 0.24581720577437763,
+      "std": 0.002735036929702621,
       "n_reps": 3,
       "values": {
         "rep1": 0.24328829508476674,
-        "rep2": 0.24644648778879838,
-        "rep3": 0.24257554455917818
+        "rep2": 0.24871991782978004,
+        "rep3": 0.24544340440858614
       }
     },
     "std_best_gdt_ts_percent": {
-      "mean": 24.410344247758104,
-      "std": 0.2060194001967931,
+      "mean": 24.581720577437764,
+      "std": 0.27350369297026245,
       "n_reps": 3,
       "values": {
         "rep1": 24.328829508476673,
-        "rep2": 24.644648778879834,
-        "rep3": 24.257554455917813
+        "rep2": 24.871991782978004,
+        "rep3": 24.544340440858615
       }
     },
     "std_best_lddt_ca": {
-      "mean": 0.10410762302557529,
-      "std": 0.005201369180490546,
+      "mean": 0.10494117649507172,
+      "std": 0.0020741720053227813,
       "n_reps": 3,
       "values": {
         "rep1": 0.10257174836113749,
-        "rep2": 0.09984713534462053,
-        "rep3": 0.10990398537096784
+        "rep2": 0.10582332280722108,
+        "rep3": 0.10642845831685657
       }
     },
     "std_best_tmalign_rmsd": {
-      "mean": 1.4463926037811297,
-      "std": 0.03151041282050864,
+      "mean": 1.4719513618602962,
+      "std": 0.05219906198763838,
       "n_reps": 3,
       "values": {
         "rep1": 1.4119966520691705,
-        "rep2": 1.4533146370774068,
-        "rep3": 1.4738665221968117
+        "rep2": 1.4965606023023714,
+        "rep3": 1.5072968312093464
       }
     },
     "std_best_tmalign_tm_score_ref": {
-      "mean": 0.22300641146827735,
-      "std": 0.0022270138999452146,
+      "mean": 0.22348469310245175,
+      "std": 0.0015703727991089793,
       "n_reps": 3,
       "values": {
         "rep1": 0.22452997327031346,
-        "rep2": 0.22403869313224453,
-        "rep3": 0.220450568002274
+        "rep2": 0.224245257116156,
+        "rep3": 0.22167884892088574
       }
     }
   },
   "cost_totals_across_reps": {
     "codecarbon_wall_time_sec": {
-      "mean": 31607.353370984394,
-      "std": 44081.59635720041,
+      "mean": 80721.80355461438,
+      "std": 1547.536355058863,
       "n_reps": 3,
       "values": {
         "rep1": 82508.39588975906,
-        "rep2": 6150.485808372498,
-        "rep3": 6163.178414821625
+        "rep2": 79797.93548440933,
+        "rep3": 79859.07928967476
       }
     },
     "cpu_energy_kwh": {
-      "mean": 0.37313265188639927,
-      "std": 0.5203953680146043,
+      "mean": 0.9529421799554871,
+      "std": 0.018269147831318677,
       "n_reps": 3,
       "values": {
         "rep1": 0.9740334572753975,
-        "rep2": 0.07260732793096039,
-        "rep3": 0.0727571704528398
+        "rep2": 0.9420356005198429,
+        "rep3": 0.9427574820712212
       }
     },
     "gpu_energy_kwh": {
-      "mean": 0.6755206903616272,
-      "std": 0.7801676901735837,
+      "mean": 1.4758244431238057,
+      "std": 0.08691505195925746,
       "n_reps": 3,
       "values": {
         "rep1": 1.5761833552153193,
-        "rep2": 0.20885847018275444,
-        "rep3": 0.24152024568680802
+        "rep2": 1.4261861247096346,
+        "rep3": 1.4251038494464634
       }
     },
     "gpu_share_pct": {
-      "mean": 44.92134662877125,
-      "std": 9.972214183197268,
+      "mean": 32.60087314270468,
+      "std": 0.8634298608936491,
       "n_reps": 3,
       "values": {
         "rep1": 33.5972543772935,
-        "rep2": 48.77542242135281,
-        "rep3": 52.39136308766744
+        "rep2": 32.13316942755299,
+        "rep3": 32.07219562326753
       }
     },
     "inference_carbon_emissions_g": {
-      "mean": 217.40552630163066,
-      "std": 13.294862915267542,
+      "mean": 221.91295713347168,
+      "std": 6.884514701321311,
       "n_reps": 3,
       "values": {
         "rep1": 229.84809321441705,
-        "rep2": 203.39705616445337,
-        "rep3": 218.9714295260216
+        "rep2": 218.35982148238082,
+        "rep3": 217.53095670361722
       }
     },
     "inference_energy_consumed_kwh": {
-      "mean": 0.4576958448455383,
-      "std": 0.027989185084773716,
+      "mean": 0.46718517291257206,
+      "std": 0.014493715160676374,
       "n_reps": 3,
       "values": {
         "rep1": 0.4838907225566675,
-        "rep2": 0.4282043287672704,
-        "rep3": 0.46099248321267705
+        "rep2": 0.4597048873313282,
+        "rep3": 0.4579599088497206
       }
     },
     "inference_runtime_sec": {
-      "mean": 6288.505932666667,
-      "std": 127.13953337279311,
+      "mean": 6319.443246666666,
+      "std": 100.33032428071294,
       "n_reps": 3,
       "values": {
         "rep1": 6435.122902999999,
-        "rep2": 6208.712160000001,
-        "rep3": 6221.682734999999
+        "rep2": 6267.0657260000025,
+        "rep3": 6256.141110999997
       }
     },
     "msa_build_runtime_sec": {
-      "mean": 23799.076871,
-      "std": 41221.210313809344,
+      "mean": 71322.96535666665,
+      "std": 74.14208348213111,
       "n_reps": 3,
       "values": {
         "rep1": 71397.230613,
-        "rep2": 0.0,
-        "rep3": 0.0
+        "rep2": 71248.94706299999,
+        "rep3": 71322.71839399998
       }
     },
     "ram_energy_kwh": {
-      "mean": 0.811547344585643,
-      "std": 1.1515029631665423,
+      "mean": 2.095630413743608,
+      "std": 0.03954749789818823,
       "n_reps": 3,
       "values": {
         "rep1": 2.1411884360303444,
-        "rep2": 0.14673853065355544,
-        "rep3": 0.14671506707302923
+        "rep2": 2.0701394763478973,
+        "rep3": 2.075563328852583
       }
     },
     "total_carbon_emissions_g": {
-      "mean": 841.7860599685229,
-      "std": 1092.2621459860127,
+      "mean": 2066.4023419839623,
+      "std": 31.708820406211572,
       "n_reps": 3,
       "values": {
         "rep1": 2102.9896942150936,
-        "rep2": 203.39705616445337,
-        "rep3": 218.9714295260216
+        "rep2": 2046.8947737439746,
+        "rep3": 2049.322557992819
       }
     },
     "total_energy_consumed_kwh": {
-      "mean": 1.7721811788811008,
-      "std": 2.299499254707395,
+      "mean": 4.350320719966237,
+      "std": 0.06675541138149782,
       "n_reps": 3,
       "values": {
         "rep1": 4.427346724663355,
-        "rep2": 0.4282043287672704,
-        "rep3": 0.46099248321267705
+        "rep2": 4.309252155250473,
+        "rep3": 4.3143632799848834
       }
     },
     "total_runtime_sec": {
-      "mean": 30087.582803666668,
-      "std": 41348.184843338844,
+      "mean": 77642.40860333333,
+      "std": 167.47157912302373,
       "n_reps": 3,
       "values": {
         "rep1": 77832.353516,
-        "rep2": 6208.712160000001,
-        "rep3": 6221.682734999999
+        "rep2": 77516.01278899999,
+        "rep3": 77578.859505
       }
     }
   },
-  "cost_totals_across_reps_comparable": false,
-  "cost_totals_across_reps_note": "Stages differ between replicates (rep1=inference+msa_features; rep2=inference; rep3=inference). mean/std over cost_totals_across_reps mixes different experiments and is not interpretable; use the per-replicate values in replicates[] and compare like stages only. Accuracy metrics are unaffected."
+  "cost_totals_across_reps_comparable": true,
+  "cost_totals_across_reps_note": ""
 }
